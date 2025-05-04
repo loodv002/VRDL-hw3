@@ -1,0 +1,23 @@
+# If relative path given, it should relative to working directory (instead of project root, etc).
+# Those directories should be manually created before executing programs.
+path:
+  # Data root directory, should include "train", "test_release" sub-directory and "test_image_name_to_ids.json" file.
+  DATA_DIR: "../data"
+
+  # Model checkpoint and category-id mapping file directory.
+  MODEL_DIR: "../model"
+
+  # Inference file (both .json and .zip) output directory.
+  OUTPUT_DIR: "../output"
+
+data:
+  # Number of validation data splitted from training dataset.
+  N_VAL_DATA: 40
+
+train: 
+  BATCH_SIZE: 2
+  LEARNING_RATE: 0.001
+  MAX_EPOCHES: 20
+
+  # If enabled, training will stop if the validation loss increases in the last two epochs.
+  EARLY_STOP: false

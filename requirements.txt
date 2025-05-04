@@ -1,0 +1,11 @@
+torch==2.7.0
+torchmetrics==1.7.1
+torchvision==0.22.0
+numpy==1.26.4
+PyYAML==6.0.2
+tqdm==4.67.1
+pillow==11.2.1
+tifffile==2025.3.30
+opencv-python==4.11.0.86
+imagecodecs==2025.3.30
+pycocotools==2.0.8
