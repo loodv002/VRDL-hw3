@@ -39,7 +39,12 @@ train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, co
 val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, collate_fn=aggregate_batch)
 
 model = Detector()
+n_parameters = sum(p.numel() for p in model.parameters())
+
 print(f'Model name: {model.model_name}')
+print(f'Number of params: {n_parameters:,}')
+    
+assert n_parameters <= 200 * 1024 * 1024
 
 params = [p for p in model.parameters() if p.requires_grad]
 optimizer = torch.optim.SGD(params, lr=LEARNING_RATE, momentum=0.9)
