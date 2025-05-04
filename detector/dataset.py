@@ -8,6 +8,7 @@ import random
 from .image_utils import read_mask
 
 augment_tranforms = [
+    lambda x: x,
     lambda x: x.flip(-1),
     lambda x: x.flip(-2),
     lambda x: x.transpose(-2, -1).flip(-1),
