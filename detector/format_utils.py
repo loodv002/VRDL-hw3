@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 
-from image_utils import encode_mask
+from .image_utils import encode_mask
 
 def outputs_to_annotations(outputs: List[Dict[str, Any]], image_ids: List[int]) -> List[Dict[str, Any]]:
     annotations = []
