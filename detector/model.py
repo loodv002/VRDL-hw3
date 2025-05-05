@@ -8,7 +8,11 @@ class Detector(nn.Module):
     def __init__(self):
         super(Detector, self).__init__()
 
-        self.backbone = maskrcnn_resnet50_fpn(weights=MaskRCNN_ResNet50_FPN_Weights.DEFAULT, trainable_backbone_layers=3)
+        self.backbone = maskrcnn_resnet50_fpn(weights=MaskRCNN_ResNet50_FPN_Weights.DEFAULT,
+                                              trainable_backbone_layers=3,
+                                              rpn_batch_size_per_image=1024,
+                                              box_detections_per_img=1024)
+        
         self.backbone.roi_heads.box_predictor = FastRCNNPredictor(
             1024, num_classes=5
         )
