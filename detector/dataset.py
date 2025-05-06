@@ -31,6 +31,8 @@ class TrainDataset:
         self.data = os.listdir(root_dir)
         self.transform = transform
 
+        self.BBOX_PADDING = 10
+
     def _get_image(self, image_dir: Path, augment_transform):
         image = tifffile.imread(image_dir / 'image.tif')[:, :, :3]
         image = self.transform(image)
@@ -64,8 +66,8 @@ class TrainDataset:
             'masks': torch.IntTensor(masks),
         }
 
-    @staticmethod
-    def _to_boxes_masks(mask: torch.Tensor):
+    def _to_boxes_masks(self, mask: torch.Tensor):
+        h, w = mask.shape
         instances = np.unique(mask)
         boxes = []
         masks = []
@@ -76,10 +78,10 @@ class TrainDataset:
             instance_mask = (mask == instance)
             
             ys, xs = np.where(instance_mask)
-            x1 = xs.min()
-            y1 = ys.min()
-            x2 = xs.max()
-            y2 = ys.max()
+            x1 = max(xs.min() - self.BBOX_PADDING, 0)
+            y1 = max(ys.min() - self.BBOX_PADDING, 0)
+            x2 = min(xs.max() + self.BBOX_PADDING, w - 1)
+            y2 = min(ys.max() + self.BBOX_PADDING, h - 1)
 
             boxes.append([x1, y1, x2, y2])
             masks.append(instance_mask)
