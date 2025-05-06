@@ -3,10 +3,23 @@ import yaml
 from pathlib import Path
 import shutil
 import random
+import argparse
 
 from detector.image_utils import count_mask_instances
 
-with open('./config.yml', 'r') as f:
+parser = argparse.ArgumentParser()
+parser.add_argument('--config', default='./config.yml', help='config file path')
+args = parser.parse_args()
+
+config_path = args.config
+
+print(f'Config file: {config_path}')
+
+if not os.path.exists(config_path):
+    print(f'Config file "{config_path}" not exist.')
+    exit()
+
+with open(config_path, 'r') as f:
     config = yaml.safe_load(f)
 
 DATA_DIR = Path(config['path']['DATA_DIR'])

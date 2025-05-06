@@ -22,12 +22,18 @@ A fine-tuned `maskrcnn_resnet50_fpn` model for cell image instance segmentation,
 
   Check the comments in `config-example.yml`.
 
+### Split training and validation data:
+
+  ```bash
+  python split_train_val.py [--config <config_file_path>]
+  ```
+  The default value of `config` argument is `./config.yml`. The `data/train` directory will be splitted into `data/train_splitted` and `data/val_splitted` directories. The script will output the resulting categories distribution of two datasets as well, users should ensure the distributions are similar.
+
 ### Training:
 
   ```bash
   python train.py [--config <config_file_path>]
   ```
-  The default value of `config` argument is `./config.yml`.
 
 ### Inference:
 
